@@ -1,20 +1,20 @@
 import mongoose from 'mongoose';
 
-export interface IUser extends mongoose.Document {
+export interface User extends mongoose.Document {
     name: {
-        title: string,
-        first: string,
-        last: string,
-    },
-    gender: string,
-    email: string,
+        title: string;
+        first: string;
+        last: string;
+    };
+    gender: string;
+    email: string;
     picture: {
-        large: string,
-        medium: string,
-        thumbnail: string
-    },
-    password?: string,
-    removed?: boolean,
+        large: string;
+        medium: string;
+        thumbnail: string;
+    };
+    password?: string;
+    removed?: boolean;
 }
 
 const user = new mongoose.Schema({
@@ -27,17 +27,17 @@ const user = new mongoose.Schema({
     email: { type: 'String', unique: true },
     picture: {
         large: {
-            type: 'String'
+            type: 'String',
         },
         medium: {
-            type: 'String'
+            type: 'String',
         },
         thumbnail: {
-            type: 'String'
-        }
+            type: 'String',
+        },
     },
     password: { type: 'String' },
     removed: { type: 'Boolean', default: false },
 });
 
-export default mongoose.model<IUser>('users', user);
+export default mongoose.model<User>('users', user);

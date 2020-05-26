@@ -4,11 +4,11 @@ import { initServer } from '../src/app';
 import HttpStatus from 'http-status-codes'
 import { Server } from 'http';
 // @ts-ignore
-import { IUser } from '../src/models/user-model';
+import { User } from '../src/models/user-model';
 let agent: ReturnType<typeof request.agent>;
 let server: Server;
 
-let outUser: IUser;
+let outUser: User;
 
 describe('Test generation', () => {
     it('Should generate user with username and without password', async () => {

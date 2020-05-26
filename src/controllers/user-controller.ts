@@ -5,7 +5,7 @@ import httpStatus from 'http-status-codes';
 
 import models from '../db';
 import { validationResult } from 'express-validator';
-import { IUser } from '../models/user-model';
+import { User } from '../models/user-model';
 
 const Users = models.Users;
 const saltRounds = process.env.SALT_ROUNDS || 10;
@@ -28,7 +28,7 @@ interface IApiUser {
     },
 }
 
-function castApiUserToUser(apiUser: IApiUser): Partial<IUser> {
+function castApiUserToUser(apiUser: IApiUser): Partial<User> {
     return {
         name: apiUser.name,
         gender: apiUser.gender,
