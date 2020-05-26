@@ -44,13 +44,13 @@ const userController = {
         };
         const newUser = (await fetch('https://randomuser.me/api/', options).then(res => res.json())).results[0] as IApiUser;
         const password = (await bcrypt.hash(newUser.login.password, saltRounds));
-        let savedUser = new Users({...castApiUserToUser(newUser), password});
+        let savedUser = new Users({ ...castApiUserToUser(newUser), password });
         savedUser = await savedUser.save();
         savedUser.password = undefined;
         res.send(savedUser);
     },
     async get(_req: Request, res: Response) {
-        res.send(await Users.find({removed: false}, '-password'));
+        res.send(await Users.find({ removed: false }, '-password'));
     },
     async put(req: Request, res: Response) {
         const updates = req.body;
@@ -67,7 +67,7 @@ const userController = {
     },
     async delete(req: Request, res: Response) {
         try {
-            res.send(await Users.findOneAndUpdate({_id: req.params.userId}, {removed: true}));
+            res.send(await Users.findOneAndUpdate({ _id: req.params.userId }, { removed: true }));
         } catch (e) {
             res.status(httpStatus.BAD_REQUEST).send();
         }
@@ -78,7 +78,7 @@ const userController = {
             res.status(422).send({ errors: errors.array() });
             return;
         }
-        const maybeUser = await Users.findOne({email: req.body.email});
+        const maybeUser = await Users.findOne({ email: req.body.email });
         if (maybeUser && maybeUser.password) {
             const isValidPassword = await bcrypt.compare(req.body.password, maybeUser.password);
             if (isValidPassword) {
